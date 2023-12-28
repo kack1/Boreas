@@ -1,5 +1,6 @@
 module Main where
 
+import Boreas_Network
 import Parse
 import System.Environment
 

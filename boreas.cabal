@@ -31,8 +31,9 @@ executable boreas
     other-modules:    Parse , Boreas_Util
 
     build-depends:    base ^>=4.18.0.0
-		    ,  curl >=1.3.8
-                    ,  parsec >=3.1.17.0
+		            , curl >=1.3.8
+                    , parsec >=3.1.17.0
+                    , curl >= 1.3.8
 
     -- Directories containing source files.
     hs-source-dirs:   app
