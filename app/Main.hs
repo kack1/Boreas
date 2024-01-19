@@ -10,3 +10,4 @@ main = do
   text <- readFile $ head args
   s <- collectInfo $ lines text
   print s
+  -- keys <- map curlGithubKeys s
