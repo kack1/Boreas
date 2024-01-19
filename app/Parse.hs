@@ -3,6 +3,7 @@ module Parse where
 import Boreas_Util
 import Control.Monad
 import Data.Either
+import System.Exit
 import Text.Parsec
 import Text.Parsec.String
 
@@ -29,4 +30,6 @@ collectInfo = checkParseErrors . partitionEithers . map parseLine
 checkParseErrors :: ([ParseError], [StudentInfo]) -> IO ([StudentInfo])
 checkParseErrors (e, s) = do
   putStrLn . unlines $ map show e
-  return s
+  if null e
+    then return s
+    else exitFailure
