@@ -8,8 +8,7 @@ curlGithubKeys gh = curlGetString userkeys []
   where
     userkeys = "https://github.com/" ++ gh ++ ".keys"
 
-getGithubKeys s = do
-  (st, key) <- curlGithubKeys . githubID . s
-  case st of
-    CurlOK -> return Just key
-    otherwise -> return Nothing
+-- getGithubKeys :: [StudentInfo] -> [String]
+getGithubKeys stds = do
+  xs <- map (curlGithubKeys . githubID) stds
+  return xs
