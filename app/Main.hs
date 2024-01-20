@@ -11,4 +11,4 @@ main = do
   text <- readFile $ head args
   s <- collectInfo $ lines text
   x <- sequence $ getGithubKeys s
-  putStrLn $ show x
+  putStrLn . unlines $ map snd x
