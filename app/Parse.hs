@@ -19,7 +19,7 @@ parseInfo = do
   whitespace
   gh <- many1 alphaNum
   whitespace
-  return (StudentInfo uni gh)
+  return (StudentInfo uni gh "")
 
 parseLine :: String -> Either ParseError StudentInfo
 parseLine = parse parseInfo ""

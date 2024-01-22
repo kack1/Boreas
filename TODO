@@ -1,7 +1,3 @@
-- Create SSH key entry for StudentInfo
-- Insert SSH keys into SSH Key entry. This way we can move
-the object(s) and not worry about keeping studentIDs or githubIDs
-with the key -- keep all together.
 - Create cmd line arugments. These flags/options include
             -f : Config file
             -U : Update SSH keys
