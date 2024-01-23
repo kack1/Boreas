@@ -1,3 +1,4 @@
+-- Copyright (c) 2024, Kyle Ackerman
 module Boreas_Util where
 
 data StudentInfo =

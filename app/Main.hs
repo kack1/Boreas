@@ -1,3 +1,5 @@
+-- Copyright (c) 2024, Kyle Ackerman
+
 module Main where
 
 import Boreas_Network

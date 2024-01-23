@@ -1,3 +1,4 @@
+-- Copyright (c) 2024, Kyle Ackerman
 module Parse where
 
 import Boreas_Util
