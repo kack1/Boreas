@@ -21,7 +21,7 @@ build-type:         Simple
 extra-doc-files:    CHANGELOG.md 
 
 common warnings
-    ghc-options: -Wall
+    ghc-options: -Wall -static
 
 executable boreas
     import:           warnings

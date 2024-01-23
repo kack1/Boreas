@@ -25,10 +25,10 @@ parseInfo = do
 parseLine :: String -> Either ParseError StudentInfo
 parseLine = parse parseInfo ""
 
-collectInfo :: [String] -> IO ([StudentInfo])
+collectInfo :: [String] -> IO [StudentInfo]
 collectInfo = checkParseErrors . partitionEithers . map parseLine
 
-checkParseErrors :: ([ParseError], [StudentInfo]) -> IO ([StudentInfo])
+checkParseErrors :: ([ParseError], [StudentInfo]) -> IO [StudentInfo]
 checkParseErrors (e, s) = do
   putStrLn . unlines $ map show e
   if null e

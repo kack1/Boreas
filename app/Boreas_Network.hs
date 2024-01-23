@@ -11,15 +11,13 @@ curlGithubKeys gh = curlGetString userkeys []
     userkeys = "https://github.com/" ++ gh ++ ".keys"
 
 getGithubKeys :: [StudentInfo] -> [IO (CurlCode, String)]
-getGithubKeys stds = do
-  xs <- map (curlGithubKeys . githubID) stds
-  return xs
+getGithubKeys stds = do map (curlGithubKeys . githubID) stds
 
 filterOK :: [(CurlCode, String)] -> [String]
 filterOK xs = map snd $ filter (\x -> CurlOK == fst x) xs
 
 insertKeys :: StudentInfo -> String -> StudentInfo
-insertKeys std k = StudentInfo u g k
+insertKeys std = StudentInfo u g
   where
     u = universityID std
     g = githubID std
