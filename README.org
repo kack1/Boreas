@@ -1,6 +1,6 @@
 * Boreas
 
-Boreas is a DevOps/Sys-admin tool focused on access control geared towards universities.  Boreas uses a simple configuration file and will manage account creation and access for those accounts.  Boreas is proudly written in Haskell. 
+Boreas is a Sys-Admin tool focused on access control geared towards universities.  Boreas uses a simple configuration file and will manage account creation and access for those accounts.  Boreas is proudly written in Haskell. 
 
 ** Configuration Syntax
 The configuration file uses a simple syntax. 
