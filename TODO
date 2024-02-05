@@ -1,7 +1,7 @@
 - Create cmd line arugments. These flags/options include
             -f : Config file
-            -U : Update SSH keys
+            -U : Update SSH keys for all users
+            -U : Update SSH keys for a particular user
             -A : Gets Keys, create accounts, update keys
             -i : Get the identity of the follwing name
-- Create functions to create accounts
 - Create functions to update SSH keys
