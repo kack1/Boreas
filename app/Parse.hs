@@ -3,16 +3,16 @@ module Parse where
 
 import Boreas_Util
 import Control.Monad
-import Data.Either
 import System.Exit
+import System.IO
 import Text.Parsec
 import Text.Parsec.String
 
 whitespace :: Parser ()
 whitespace = void $ many $ oneOf " \n\t"
 
-parseInfo :: Parser StudentInfo
-parseInfo = do
+studentConfig :: Parser StudentInfo
+studentConfig = do
   whitespace
   uni <- many1 alphaNum
   whitespace
@@ -22,15 +22,14 @@ parseInfo = do
   whitespace
   return (StudentInfo uni gh "")
 
-parseLine :: String -> Either ParseError StudentInfo
-parseLine = parse parseInfo ""
+parseStudents :: Parser [StudentInfo]
+parseStudents = do
+  x <- many studentConfig
+  return x
 
-collectInfo :: [String] -> IO [StudentInfo]
-collectInfo = checkParseErrors . partitionEithers . map parseLine
-
-checkParseErrors :: ([ParseError], [StudentInfo]) -> IO [StudentInfo]
-checkParseErrors (e, s) = do
-  putStrLn . unlines $ map show e
-  if null e
-    then return s
-    else exitFailure
+parseFile :: Parser a -> String -> IO a
+parseFile p fileName = parseFromFile p fileName >>= either report return
+  where
+    report err = do
+      hPutStrLn stderr $ "Error: " ++ show err
+      exitFailure
