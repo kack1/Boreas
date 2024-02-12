@@ -24,7 +24,7 @@ studentConfig = do
 
 parseStudents :: Parser [StudentInfo]
 parseStudents = do
-  x <- many studentConfig
+  x <- many1 studentConfig
   return x
 
 parseFile :: Parser a -> String -> IO a
