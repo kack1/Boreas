@@ -14,6 +14,7 @@ type User = String
 data Command
   = Run Config
   | Update Config
+  | Purge Config
 
 data Options =
   Options Command
@@ -33,22 +34,31 @@ parseRun = Run <$> argument str (metavar "CONFIG")
 parseUpdate :: Parser Command
 parseUpdate = Update <$> argument str (metavar "CONFIG")
 
+parsePurge :: Parser Command
+parsePurge = Purge <$> argument str (metavar "CONFIG")
+
 parseCommand :: Parser Command
 parseCommand =
   subparser $
   command
     "run"
     (parseRun `withInfo` "Create accounts, scrape keys, give access.") <>
-  command "update" (parseUpdate `withInfo` "Scrape keys, update access.")
+  command "update" (parseUpdate `withInfo` "Scrape keys, update access.") <>
+  command "purge" (parseUpdate `withInfo` "Purge keys and accounts, remove access.")
 
 run :: Options -> IO ()
 run (Options cmd) = do
   case cmd of
     Run config -> cmdRun config
     Update config -> cmdUpdate config
+    Purge config -> cmdPurge config
 
 cmdUpdate :: String -> IO ()
-cmdUpdate config = undefined
+cmdUpdate config = do
+  stds <- getStudents config
+  mapM_ (ensureInHF ".ssh") stds
+  mapM_ writeKeys stds
+  print stds
 
 cmdRun :: String -> IO ()
 cmdRun config = do
@@ -58,23 +68,17 @@ cmdRun config = do
   mapM_ writeKeys stds
   print stds
 
+cmdPurge :: String -> IO ()
+cmdPurge config = do
+  stds <- getStudents config
+  mapM_ deleteUserAccount stds
+
 getStudents :: Config -> IO [StudentInfo]
 getStudents file = do
   s <- parseFile parseStudents file
   ks <- getGithubKeys s
   return $ insertKeys s ks
 
--- ex :: IO ()
--- ex = do
---   args <- getArgs
---   text <- readFile $ head args
---   s <- collectInfo $ lines text
---   x <- sequence $ getGithubKeys s
---   let newStds = zipWith insertKeys s $ filterOK x
---   mapM_ createUserAccount newStds
---   mapM_ (ensureInHF ".ssh") newStds
---   mapM_ writeKeys newStds
---   print newStds
 createUserAccount :: StudentInfo -> IO ()
 createUserAccount user = callCommand $ "useradd -m " ++ universityID user
 
