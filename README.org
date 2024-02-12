@@ -10,3 +10,11 @@ universityID : GitHubUserName
 #+end_src
 
 A colon ":" is used as the delimiter between the universityID and the Github Username.  The universityID is used as the account name to be created (i.e., what a  student would login as). The GitHub username is used as the source to scrape keys from for a particular user. The relation between the universityID and GitHub username is an important one and is the basis of this tool. 
+
+** How to install
+Borease has 2 dependancies that you will have to install. 
+
+#+begin_src bash
+sudo apt install libcurl4-openssl-dev libgmp-dev
+#+end_src
+
