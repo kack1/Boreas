@@ -1,1 +1,5 @@
 - Add Haskell Tests
+- Add -n flag for run command
+	- This will change the created accounts' shell to /sbin/nologin
+- Add per user control
+- Add search function
