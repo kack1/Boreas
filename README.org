@@ -10,7 +10,9 @@ The use case of Borease is to be organized with access control.  Lets say you ar
 comp1234.cfg	eng3532.cfg	bio3257.cfg	bus9483.cfg
 #+end_src
 
-This allows you to manage access to your resources on a per class basis.  Another example is, let say you have one class split into multiple groups.  With this multi-file strategy, you can manage each group's access. 
+This allows you to manage access to your resources on a per class basis.  Note: This may need more attention is there are overlapping students.  Another example is, let say you have one class split into multiple groups.  With this multi-file strategy, you can manage each group's access. 
+
+
 
 ** How to install
 Borease has 2 dependancies that you will have to install. 
