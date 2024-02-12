@@ -2,14 +2,15 @@
 
 Boreas is a Sys-Admin tool focused on access control, geared towards universities.  Boreas uses a simple configuration file and will manage account creation and access for those accounts.  Boreas is proudly written in Haskell. 
 
-** Configuration Syntax
-The configuration file uses a simple syntax. 
+** Use Case
+The use case of Borease is to be organized with access control.  Lets say you are managing resources access for multiple courses at a university.  Each class may need different accesss requirements.  Lets say one class only need their students to have access for a shorter period of time than another.  Using Boreas, you can have a configuration file per class. 
 
-#+begin_src cfg
-universityID : GitHubUserName
+
+#+begin_src bash
+comp1234.cfg	eng3532.cfg	bio3257.cfg	bus9483.cfg
 #+end_src
 
-A colon ":" is used as the delimiter between the universityID and the Github Username.  The universityID is used as the account name to be created (i.e., what a  student would login as). The GitHub username is used as the source to scrape keys from for a particular user. The relation between the universityID and GitHub username is an important one and is the basis of this tool. 
+This allows you to manage access to your resources on a per class basis.  Another example is, let say you have one class split into multiple groups.  With this multi-file strategy, you can manage each group's access. 
 
 ** How to install
 Borease has 2 dependancies that you will have to install. 
@@ -18,3 +19,11 @@ Borease has 2 dependancies that you will have to install.
 sudo apt install libcurl4-openssl-dev libgmp-dev
 #+end_src
 
+** Configuration Syntax
+The configuration file uses a simple syntax. 
+
+#+begin_src cfg
+universityID : GitHubUserName
+#+end_src
+
+A colon ":" is used as the delimiter between the universityID and the Github Username.  The universityID is used as the account name to be created (i.e., what a  student would login as). The GitHub username is used as the source to scrape keys from for a particular user. The relation between the universityID and GitHub username is an important one and is the basis of this tool. 
