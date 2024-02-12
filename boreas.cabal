@@ -15,7 +15,7 @@ category:        Control
 build-type:      Simple
 
 -- For haskell-ci
-tested-with:     GHC ==9.2.8 || ==9.4.8 || ==9.6.3
+tested-with:     GHC ==9.4.8 || ==9.6.2
 
 -- Extra doc files to be distributed with the package, such as a CHANGELOG or a README.
 extra-doc-files: CHANGELOG.md
