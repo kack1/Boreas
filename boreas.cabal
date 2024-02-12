@@ -37,6 +37,7 @@ executable boreas
                     , parsec >=3.1.17.0
                     , curl >= 1.3.8
 		    , process >= 1.6.18.0
+		    , optparse-applicative >= 0.15.0.0
 
     -- Directories containing source files.
     hs-source-dirs:   app
