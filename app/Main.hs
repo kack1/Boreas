@@ -41,10 +41,9 @@ parseCommand :: Parser Command
 parseCommand =
   subparser $
   command
-    "run"
-    (parseRun `withInfo` "Create accounts, scrape keys, give access.") <>
+    "run" (parseRun `withInfo` "Create accounts, scrape keys, give access.") <>
   command "update" (parseUpdate `withInfo` "Scrape keys, update access.") <>
-  command "purge" (parseUpdate `withInfo` "Purge keys and accounts, remove access.")
+  command "purge" (parsePurge `withInfo` "Purge keys and accounts, remove access.")
 
 run :: Options -> IO ()
 run (Options cmd) = do
