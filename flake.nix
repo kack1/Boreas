@@ -1,5 +1,5 @@
 {
-  description = "Boreas is access control utility";
+  description = "Boreas - a sys-admin utility";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs";
@@ -16,27 +16,26 @@
         jailbreakUnbreak = pkg:
           pkgs.haskell.lib.doJailbreak (pkg.overrideAttrs (_: { meta = { }; }));
 
-	license = lib.licenses.bsd2;
-        packageName = "boreas"
-	isLibrary = false;
-	isExecutable = true;
-	pname = "boreas";
-	version = "0.1.0";
+        packageName = "boreas";
       in {
-        packages.${packageName} = # (ref:haskell-package-def)
+        packages.${packageName} =
           haskellPackages.callCabal2nix packageName self rec {
             # Dependency overrides go here
+	    optparse-applicative =
+	      pkgs.haskell.lib.dontCheck haskellPackages.optparse-applicative_0_18_1_0;
           };
 
-        defaultPackage = self.packages.${system}.${packageName};
+        packages.default = self.packages.${system}.${packageName};
+        defaultPackage = self.packages.${system}.default;
 
-        devShell = pkgs.mkShell {
-          buildInputs = with haskellPackages; [
-            haskell-language-server
+        devShells.default = pkgs.mkShell {
+          buildInputs = with pkgs; [
+            haskellPackages.haskell-language-server 
             ghcid
             cabal-install
           ];
-          inputsFrom = builtins.attrValues self.packages.${system};
+          inputsFrom = map (__getAttr "env") (__attrValues self.packages.${system});
         };
+        devShell = self.devShells.${system}.default;
       });
 }
