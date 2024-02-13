@@ -17,7 +17,11 @@
           pkgs.haskell.lib.doJailbreak (pkg.overrideAttrs (_: { meta = { }; }));
 
 	license = lib.licenses.bsd2;
-        packageName = "boreas";
+        packageName = "boreas"
+	isLibrary = false;
+	isExecutable = true;
+	pname = "boreas";
+	version = "0.1.0";
       in {
         packages.${packageName} = # (ref:haskell-package-def)
           haskellPackages.callCabal2nix packageName self rec {
