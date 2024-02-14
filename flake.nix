@@ -1,41 +1,22 @@
 {
-  description = "Boreas - a sys-admin utility";
-
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs";
-    flake-utils.url = "github:numtide/flake-utils";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    haskell-flake.url = "github:srid/haskell-flake";
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = nixpkgs.legacyPackages.${system};
+  outputs = inputs@{ self, nixpkgs, flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = nixpkgs.lib.systems.flakeExposed;
+      imports = [ inputs.haskell-flake.flakeModule ];
 
-        haskellPackages = pkgs.haskellPackages;
-
-        jailbreakUnbreak = pkg:
-          pkgs.haskell.lib.doJailbreak (pkg.overrideAttrs (_: { meta = { }; }));
-
-        packageName = "boreas";
-      in {
-        packages.${packageName} =
-          haskellPackages.callCabal2nix packageName self rec {
-            # Dependency overrides go here
-	    optparse-applicative =
-	      pkgs.haskell.lib.dontCheck haskellPackages.optparse-applicative_0_18_1_0;
-          };
-
-        packages.default = self.packages.${system}.${packageName};
-        defaultPackage = self.packages.${system}.default;
-
-        devShells.default = pkgs.mkShell {
-          buildInputs = with pkgs; [
-            haskellPackages.haskell-language-server 
-            ghcid
-            cabal-install
-          ];
-          inputsFrom = map (__getAttr "env") (__attrValues self.packages.${system});
+      perSystem = { self', pkgs, ... }: {
+        formatter = pkgs.nixfmt;
+        haskellProjects.default = {
+          basePackages = pkgs.haskellPackages;
         };
-        devShell = self.devShells.${system}.default;
-      });
+
+        packages.default = self'.packages.boreas;
+      };
+    };
 }

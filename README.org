@@ -12,18 +12,31 @@ comp1234.cfg	eng3532.cfg	bio3257.cfg	bus9483.cfg
 
 This allows you to manage access to your resources on a per class basis.  Note: This may need more attention is there are overlapping students.  Another example is, let say you have one class split into multiple groups.  With this multi-file strategy, you can manage each group's access. 
 
-
-
 ** How to install
-Borease has 2 dependancies that you will have to install. 
+*** How to build
+Borease has 2 dependancies that you will have to install. You will also need to install ghc and cabal via GHCup (or by other means).
 
 #+begin_src bash
 sudo apt install libcurl4-openssl-dev libgmp-dev
+cabal install
+#+end_src
+
+*** How to build via Nix
+Boreas uses Nix flakes (via the haskell-flake module). Everything should work the same. Only thing I have ran into is if you run a 'nix flake show' you might get an error. The following command will work
+
+#+begin_src bash
+nix flake show --allow-import-from-derivation
+#+end_src
+
+From what I can tell this seems common with Haskell and Nix derivations.
+To just build, you can run ** Configuration Syntax The configuration file uses a simple syntax. 
+
+#+begin_src bash
+nix build
 #+end_src
 
 ** Configuration Syntax
-The configuration file uses a simple syntax. 
-
+The configuration file uses a simple syntax.
 #+begin_src cfg
 universityID : GitHubUserName
 #+end_src
