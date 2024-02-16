@@ -46,7 +46,7 @@ A colon ":" is used as the delimiter between the universityID and the Github Use
 ** How-to
 Currently there is no man page for Boreas.  The best that is provided is the [-h | --help] options.
 
-#+begain_src bash
+#+begin_src bash
 Usage: boreas COMMAND
 
   Boreas Command
