@@ -6,13 +6,15 @@ import Options.Applicative
 
 type User = String
 
-data Command
-  = Run Config
-  | Update Config
-  | Purge Config
+type Flag = Bool
 
-data Options =
-  Options Command
+data Commands
+  = Purge !Config
+  | Update !Config
+  | Run !Flag !Config
+
+newtype Options =
+  Options Commands
 
 main :: IO ()
 main = run =<< execParser (parseOptions `withInfo` "Boreas Command")
@@ -23,16 +25,19 @@ parseOptions = Options <$> parseCommand
 withInfo :: Parser a -> String -> ParserInfo a
 withInfo opts desc = info (helper <*> opts) $ progDesc desc
 
-parseRun :: Parser Command
-parseRun = Run <$> argument str (metavar "CONFIG")
+parseNoLoginShell :: Parser Bool
+parseNoLoginShell = switch (long "no-login" <> short 'n')
 
-parseUpdate :: Parser Command
+parseRun :: Parser Commands
+parseRun = Run <$> parseNoLoginShell <*> argument str (metavar "CONFIG")
+
+parseUpdate :: Parser Commands
 parseUpdate = Update <$> argument str (metavar "CONFIG")
 
-parsePurge :: Parser Command
+parsePurge :: Parser Commands
 parsePurge = Purge <$> argument str (metavar "CONFIG")
 
-parseCommand :: Parser Command
+parseCommand :: Parser Commands
 parseCommand =
   subparser $
   command
@@ -43,9 +48,11 @@ parseCommand =
     "purge"
     (parsePurge `withInfo` "Purge keys and accounts, remove access.")
 
+--
 run :: Options -> IO ()
-run (Options cmd) = do
-  case cmd of
-    Run config -> cmdRun config
-    Update config -> cmdUpdate config
-    Purge config -> cmdPurge config
+run = undefined
+-- run (Options cmd) = do
+--   case cmd of
+--     Run flag config -> cmdRun flag config
+--     Update config -> cmdUpdate config
+--     Purge config -> cmdPurge config
