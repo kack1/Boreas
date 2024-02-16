@@ -42,3 +42,20 @@ universityID : GitHubUserName
 #+end_src
 
 A colon ":" is used as the delimiter between the universityID and the Github Username.  The universityID is used as the account name to be created (i.e., what a  student would login as). The GitHub username is used as the source to scrape keys from for a particular user. The relation between the universityID and GitHub username is an important one and is the basis of this tool. 
+
+** How-to
+Currently there is no man page for Boreas.  The best that is provided is the [-h | --help] options.
+
+#+begain_src bash
+Usage: boreas COMMAND
+
+  Boreas Command
+
+Available options:
+  -h,--help                Show this help text
+
+Available commands:
+  run                      Create accounts, scrape keys, give access.
+  update                   Scrape keys, update access.
+  purge                    Purge keys and accounts, remove access.
+#+end_src
