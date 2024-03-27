@@ -24,10 +24,18 @@ common warnings
   ghc-options: -Wall -static
 
 library
+<<<<<<< HEAD
   exposed-modules:  Boreas_Lib, Boreas_Util
   other-modules:
     Boreas_Network
     Parse
+=======
+  exposed-modules:  
+      Boreas_Lib
+   ,  Boreas_Network
+   ,  Boreas_Util
+   ,  Parse
+>>>>>>> 3658c79c3cd8561f6e1af5d5a10b1302242c4936
 
   build-depends:
     , base                  >=4.15.0.0 && <4.19.0.0.0

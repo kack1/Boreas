@@ -47,7 +47,6 @@ parseCommand =
     "purge"
     (parsePurge `withInfo` "Purge keys and accounts, remove access.")
 
---
 run :: Options -> IO ()
 run (Options cmd) = do
   case cmd of
