@@ -3,6 +3,8 @@ module Boreas_Util where
 
 import System.Process
 
+type Flag = Bool
+
 data StudentInfo =
   StudentInfo
     { universityID :: String
@@ -11,8 +13,10 @@ data StudentInfo =
     }
   deriving (Read, Show)
 
-createUserAccount :: StudentInfo -> IO ()
-createUserAccount user = callCommand $ "useradd -m " ++ universityID user
+createUserAccount :: StudentInfo -> Flag -> IO ()
+createUserAccount user True =
+  callCommand $ "useradd -m " ++ universityID user ++ "-s /sbin/nologin"
+createUserAccount user False = callCommand $ "useradd -m " ++ universityID user
 
 deleteUserAccount :: StudentInfo -> IO ()
 deleteUserAccount user = callCommand $ "userdel -r " ++ universityID user

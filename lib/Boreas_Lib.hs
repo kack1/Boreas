@@ -14,10 +14,10 @@ cmdUpdate config = do
   mapM_ writeKeys stds
   print stds
 
-cmdRun :: String -> IO ()
-cmdRun config = do
+cmdRun :: Flag -> String -> IO ()
+cmdRun flg config = do
   stds <- getStudents config
-  mapM_ createUserAccount stds
+  mapM_ (`createUserAccount` flg) stds
   mapM_ (ensureInHF ".ssh") stds
   mapM_ writeKeys stds
   print stds

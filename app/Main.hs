@@ -2,11 +2,10 @@
 module Main where
 
 import Boreas_Lib
+import Boreas_Util
 import Options.Applicative
 
 type User = String
-
-type Flag = Bool
 
 data Commands
   = Purge !Config
@@ -50,9 +49,8 @@ parseCommand =
 
 --
 run :: Options -> IO ()
-run = undefined
--- run (Options cmd) = do
---   case cmd of
---     Run flag config -> cmdRun flag config
---     Update config -> cmdUpdate config
---     Purge config -> cmdPurge config
+run (Options cmd) = do
+  case cmd of
+    Run flg config -> cmdRun flg config
+    Update config -> cmdUpdate config
+    Purge config -> cmdPurge config
